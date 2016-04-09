@@ -1,25 +1,19 @@
 #!/usr/bin/env python
 
-
-def flip_to(i, arr):
-    return [not v for v in reversed(arr[:i])] + arr[i:]
-
-def children(arr):
-    return [flip_to(i, arr) for i in range(1, len(arr))]
+def flip_to(i, a):
+    return [not e for e in reversed(a[:i])] + a[i:]
 
 def numflips(arr):
-    if all(arr):
-        return 0
-    q = [(arr, 0)]
-    while q:
-        cur, depth = q.pop()
-        nxt = children(cur)
-        for c in nxt:
-            if all(c):
-                return depth+1
-            if not any(c):
-                return depth+2
-        q += [(c, depth+1) for c in nxt]
+    end = [True]*len(arr)
+    n = 0
+    for i, e in reversed(list(enumerate(arr))):
+        if e != end[i]:
+            end = flip_to(i+1, end)
+            n += 1
+    # print arr, n, end
+    # assert(arr == end)
+    return n
+
 
 def readstack(stackstr):
     return [p == '+' for p in stackstr]
