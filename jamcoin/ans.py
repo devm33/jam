@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 
-def build_sieve_to(order):
-    """Builds the sieve up to 10^order."""
-    M = 10**order
-    sieve = [False]*M
-    for i in range(2, M):
-        cur = i+i
-        while cur < M:
-            if not sieve[cur]: # not needed since smallest doesnt matter
-                sieve[cur] = i
-            cur += i
-    return sieve
+import math
 
 def coin_value_in_base(base, coin):
     """Return coin value in base."""
@@ -22,9 +12,22 @@ def coin_value_in_base(base, coin):
         multiplier *= base
     return value
 
-def check_base(base, coin, sieve):
+def check_base(base, coin):
     """Return divisor in base or False if prime."""
-    return sieve[coin_value_in_base(base, coin)]
+    value = coin_value_in_base(base, coin)
+    if value % 2 == 0:
+        return 2
+    if value % 3 == 0:
+        return 3
+    div = 5
+    while div * div < value:
+        if value % div == 0:
+            return div
+        if value % (div + 2) == 0:
+            return div + 2
+        div += 6
+    return False
+
 
 def coins_iter(N):
     """Return an iterables of jamcoins length N."""
@@ -36,14 +39,11 @@ def print_coin(coin):
 
 def print_coins(N, J):
     """Prints J jamcoins of length N each followed by 9 non trivial divisors."""
-    # First need to add to sieve
-    sieve = build_sieve_to(N+1)
-
     count = 0
     for coin in coins_iter(N):
         out = []
         for base in range(2, 11):
-            divisor = check_base(base, coin, sieve)
+            divisor = check_base(base, coin)
             if divisor:
                 out.append(divisor)
             else:
