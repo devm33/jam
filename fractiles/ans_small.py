@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
+NO = 'IMPOSSIBLE'
 
 def choose_tiles(K, C, S):
-    """For the small problem S=K so we can always just check the first K tiles."""
-    if S < K:
-        return 'IMPOSSIBLE'
-    return str_arr(range(1, S+1))
+    # special case for single tile
+    if K == 1:
+        return '1' if S > 0 else NO
+    # special case for single level have to check first K
+    if C == 1:
+        return NO if S < K else str_arr(range(1, K+1))
+    # otherwise with C > 1 have to check all of the first K except the 1st
+    return NO if S < K - 1 else str_arr(range(2, K+1))
 
 def str_arr(arr):
     return ' '.join(map(str, arr))

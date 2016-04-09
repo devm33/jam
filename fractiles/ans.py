@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
-import itertools
+# Note: didn't end up using this answer see ans_small.py
 
+import itertools
+# Leaving this here because it was a good discovery even if unused
 def generate_originals(K):
     return itertools.product([False, True], repeat=K)
 
