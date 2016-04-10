@@ -28,7 +28,8 @@ def coin_value_from_base(base, coin):
 
 def check_base(base, coin, primes):
     """Return divisor in base or False if prime or if it or exhausts the primes
-    we have precomputed, this will miss some composites, but maybes that's ok.
+    we have precomputed, this will miss some composites, but that's ok because
+    we have room to spare =)
     """
     value = coin_value_from_base(base, coin)
     if value in primes:
