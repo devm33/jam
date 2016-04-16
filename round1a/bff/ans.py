@@ -16,10 +16,14 @@ def max_circle(N, bff):
                 lengths.append(len(seen)+1)
         else:
             lengths.append(len(seen))
-    for s in unions:
-        for i, u in enumerate(unions):
-            if not u & s:
-                unions[i] = u | s
+    unstable = True
+    while unstable:
+        unstable = False
+        for s in unions:
+            for i, u in enumerate(unions):
+                if not u & s:
+                    unions[i] = u | s
+                    unstable = True
     for u in unions:
         lengths.append(len(u))
     return max(lengths)
