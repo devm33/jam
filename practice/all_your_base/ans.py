@@ -9,6 +9,8 @@ def gen_values():
         n += 1
 
 def min_secs(numstr):
+    if len(numstr) == 1:
+        return 0
     base = len(set(numstr))
     digits = {}
     value = gen_values()
