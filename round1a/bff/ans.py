@@ -14,7 +14,7 @@ def max_circle(N, bff):
             unions.append(seen)
             if bff.count(cur) > 1:
                 lengths.append(len(seen)+1)
-        else:
+        elif bff[cur] == i:
             lengths.append(len(seen))
     unstable = True
     while unstable:
