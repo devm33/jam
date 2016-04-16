@@ -1,7 +1,17 @@
 #!/usr/bin/env python
 
 def find_col(N, lists):
-    raise NotImplemented
+    for i in range(1, N):
+        l = lists[i]
+        if l[0] in lists[0]:
+            c = lists[0].index(l[0])
+            cur = 1
+            for j in range(1, N):
+                if i != j and lists[j][c] == l[cur]:
+                    cur += 1
+                    if cur == N:
+                        return l, lists[:i] + lists[i+1:]
+
 
 def find_missing(N, lists):
     # step one sort lists by first element (then second, etc)
