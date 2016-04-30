@@ -7,21 +7,19 @@ def scores(sa, sb):
     # get the length
     n = len(a)
     assert n == len(b)
-    # first can replace any unmatched ?'s
-    for i in range(n):
-        if a[i] == '?' and b[i] != '?':
-            a[i] = b[i]
-        elif a[i] != '?' and b[i] == '?':
-            b[i] = a[i]
 
-    # now all ?'s are matching and there are two cases
-    if a[0] == '?':
+    # fill out question marks
+    if a[0] == '?' and b[0] == '?':
         a[0] = b[0] = '0'
-    va = 0
-    vb = 0
+    elif a[0] == '?':
+        a[0] = b[0]
+    elif b[0] == '?':
+        b[0] = a[0]
+    va = int(a[0])
+    vb = int(b[0])
     for i in range(1, n):
-        if a[i] == '?':
-            if a[i-1] == b[i-1]:
+        if a[i] == '?' and b[i] == '?':
+            if va == vb:
                 a[i] = b[i] = '0'
             elif va < vb:
                 a[i] = '9'
@@ -29,6 +27,21 @@ def scores(sa, sb):
             else:
                 a[i] = '0'
                 b[i] = '9'
+        elif a[i] == '?':
+            if va < vb:
+                a[i] = '9'
+            elif va > vb:
+                a[i] = '0'
+            else:
+                a[i] = b[i]
+        elif b[i] == '?':
+            if vb < va:
+                b[i] = '9'
+            elif vb > va:
+                b[i] = '0'
+            else:
+                b[i] = a[i]
+
         va = 10 * va + int(a[i])
         vb = 10 * vb + int(b[i])
 
