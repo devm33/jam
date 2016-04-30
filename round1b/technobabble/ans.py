@@ -26,7 +26,7 @@ def main():
     T = int(raw_input())
     for i in range(T):
         N = int(raw_input())
-        words = [raw_input().split() for i in range(N)]
+        words = [raw_input().split() for _ in range(N)]
         print 'Case #%s: %s' % ((i+1), real(N, words))
 
 
